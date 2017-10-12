@@ -2,14 +2,19 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Definition;
 use AppBundle\Entity\Word;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use AppBundle\Entity\Definition;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
+/**
+ * Class DefaultController
+ *
+ * @package AppBundle\Controller
+ */
 class DefaultController extends Controller
 {
     /**
@@ -36,6 +41,7 @@ class DefaultController extends Controller
 
         // If $date is set, let's get the word for that date.
         // Otherwise, we'll get the word for the current date.
+        /** @var Word|null $word */
         $word = $wordRepository->findOneBy(['date' => $date]);
 
         // If the user requested a specific date, $date will be that date.
@@ -49,7 +55,7 @@ class DefaultController extends Controller
             throw $this->createNotFoundException();
         }
 
-        if (!$word && $word = $wordRepository->getOneRandom()) {
+        if (!$word && $word = $wordRepository->findOneRandom()) {
             $word->setDate(new \DateTime());
 
             $entityManager->flush();

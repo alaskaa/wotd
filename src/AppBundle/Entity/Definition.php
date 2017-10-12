@@ -77,7 +77,7 @@ class Definition
     /**
      * @param string $speechPart
      *
-     * @return self
+     * @return $this
      */
     public function setSpeechPart($speechPart)
     {
@@ -97,7 +97,7 @@ class Definition
     /**
      * @param string $text
      *
-     * @return self
+     * @return $this
      */
     public function setText($text)
     {
@@ -115,7 +115,7 @@ class Definition
     }
 
     /**
-     * @param Word $word
+     * @param Word|null $word
      *
      * @return Definition
      */

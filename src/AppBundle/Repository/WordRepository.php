@@ -5,9 +5,16 @@ namespace AppBundle\Repository;
 use AppBundle\Entity\Word;
 use Doctrine\ORM\EntityRepository;
 
+/**
+ * Class WordRepository
+ *
+ * @package AppBundle\Repository
+ */
 class WordRepository extends EntityRepository
 {
     /**
+     * Retrieve all words sorted by word
+     *
      * @return Word[]
      */
     public function findAll()
@@ -20,13 +27,13 @@ class WordRepository extends EntityRepository
      *
      * @return Word|null
      */
-    public function getOneRandom()
+    public function findOneRandom()
     {
-        $qb = $this->createQueryBuilder('w');
+        $queryBuilder = $this->createQueryBuilder('word');
 
-        $count = $qb
-            ->select('COUNT(w)')
-            ->where('w.date IS NULL')
+        $count = $queryBuilder
+            ->select('COUNT(word)')
+            ->where('word.date IS NULL')
             ->getQuery()
             ->getSingleScalarResult();
 
@@ -34,8 +41,8 @@ class WordRepository extends EntityRepository
             return null;
         }
 
-        return $qb
-            ->select('w')
+        return $queryBuilder
+            ->select('word')
             ->setFirstResult(rand(0, $count - 1))
             ->setMaxResults(1)
             ->getQuery()

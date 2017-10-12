@@ -5,12 +5,17 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\User;
 use AppBundle\Entity\Word;
 use AppBundle\Form\WordType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
+/**
+ * Class AdminController
+ *
+ * @package AppBundle\Controller
+ */
 class AdminController extends Controller
 {
     /**
@@ -46,7 +51,7 @@ class AdminController extends Controller
 
         $this->get('fos_user.user_manager')->deleteUser($user);
 
-        return new Response(null);
+        return new Response(null, 204);
     }
 
     /**
@@ -68,7 +73,7 @@ class AdminController extends Controller
 
         $this->get('fos_user.user_manager')->updateUser($user);
 
-        return new Response(null);
+        return new Response(null, 204);
     }
 
     /**
@@ -147,6 +152,6 @@ class AdminController extends Controller
 
         $entityManager->flush();
 
-        return new Response(null);
+        return new Response(null, 204);
     }
 }
