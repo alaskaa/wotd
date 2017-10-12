@@ -178,9 +178,13 @@ case "${1}" in
             # Setup Symfony and dependencies.
             export SYMFONY_ENV=test
             "${php}" "${composer}" install --optimize-autoloader --prefer-dist
-            "${php}" bin/console doctrine:schema:drop --force
-            "${php}" bin/console doctrine:schema:create
-            "${php}" bin/console doctrine:fixtures:load --quiet
+
+            if [ -f 'app/data.sqlite' ]; then
+                "${php}" bin/console doctrine:schema:drop --force
+            fi
+
+            printf "Creating empty schema...\n"
+            "${php}" bin/console doctrine:schema:create --quiet
 
             # Correct permissions on cache and log directories.
             fixPermissions

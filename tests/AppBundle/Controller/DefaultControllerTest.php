@@ -2,34 +2,59 @@
 
 namespace Tests\AppBundle\Controller;
 
-use AppBundle\Entity\Word;
-use Tests\FunctionalTestCase;
+use Liip\FunctionalTestBundle\Test\WebTestCase;
 
-class DefaultControllerTest extends FunctionalTestCase
+/**
+ * Class DefaultControllerTest
+ *
+ * @package Tests\AppBundle\Controller
+ */
+class DefaultControllerTest extends WebTestCase
 {
-    public function testSeeAboutPage()
+    /**
+     * Test that the index page works when the database is empty
+     */
+    public function testIndexPage()
     {
-        $crawler = $this->client->request('GET', '/about');
-        $this->assertResponseOk();
-        $this->assertContains('About', $crawler->filter('h1')->text());
-    }
+        // Clear the database by loading no fixtures.
+        $this->loadFixtures([]);
 
-    public function testSeeDefaultWordOnIndexPage()
-    {
-        $crawler = $this->client->request('GET', '/');
-        $this->assertResponseOk();
+        $client = $this->makeClient();
+        $crawler = $client->request('GET', '/');
+
+        $this->isSuccessful($client->getResponse());
+
+        $this->assertCount(1, $crawler->filter('h1'));
+
         $this->assertContains('Missing', $crawler->filter('h1')->text());
     }
 
-    public function testSeeRandomWordOnIndexPage()
+    /**
+     * Test that the index page works when a new word is elected
+     */
+    public function testNonDefaultWordIsElected()
     {
-        $word = new Word();
-        $word->setWord('Example');
-        $this->entityManager->persist($word);
-        $this->entityManager->flush();
+        $this->loadFixtures(['Tests\DataFixtures\NonDefaultWordFixture']);
 
-        $crawler = $this->client->request('GET', '/');
-        $this->assertResponseOk();
+        $client = $this->makeClient();
+
+        $crawler = $client->request('GET', '/');
+
+        $this->isSuccessful($client->getResponse());
+
         $this->assertContains('Example', $crawler->filter('h1')->text());
+    }
+
+    /**
+     * Test that the about page works
+     */
+    public function testAboutPage()
+    {
+        $client = $this->makeClient();
+        $crawler = $client->request('GET', '/about');
+
+        $this->isSuccessful($client->getResponse());
+
+        $this->assertCount(1, $crawler->filter('h2.panel-title'));
     }
 }
