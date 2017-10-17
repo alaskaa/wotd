@@ -106,7 +106,7 @@
                                 or (app.request.get('_route') == 'fos_user_profile_show')
                                 or (app.request.get('_route') == 'fos_user_profile_edit')
                                 ? 'active'
-                            }}">
+                            }} hidden-lg hidden-md">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
                                     <span class="fa fa-user fa-fw"></span>
                                     Hello, {{ (app.user.firstName) ? app.user.firstName : app.user.username }}!
@@ -137,6 +137,7 @@
                                             Logout
                                         </a>
                                     </li>
+                                    {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
                                 </ul>
                             </li>
                         {% endif %}
