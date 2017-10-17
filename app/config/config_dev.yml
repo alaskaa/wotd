@@ -37,6 +37,3 @@ doctrine:
     dbal:
         driver: pdo_sqlite
         path: "%kernel.root_dir%/data.sqlite"
-    orm:
-        auto_generate_proxy_classes: true
-        auto_mapping: true

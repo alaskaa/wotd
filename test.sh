@@ -56,7 +56,7 @@ runSniffs() {
 
     sniffs=false
 
-    if "${php}" vendor/bin/phpcs --standard=PSR2 src; then
+    if "${php}" vendor/bin/phpcs --standard=PSR2 src tests; then
         sniffs=true
     fi
 }

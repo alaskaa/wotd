@@ -1,7 +1,7 @@
 Thank you for your interest in contributing.
 
 The following, is a set of guidelines for contributing. These are mostly
-guidelines, not rules. User your best judgement, and feel free to propose
+guidelines, not rules. Use your best judgement, and feel free to propose
 changes to this document in a pull request.
 
 ## Table of Contents

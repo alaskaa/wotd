@@ -2,8 +2,8 @@
 
 namespace AppBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -101,7 +101,7 @@ class Word
     /**
      * @param string $word
      *
-     * @return self
+     * @return $this
      */
     public function setWord($word)
     {
@@ -121,7 +121,7 @@ class Word
     /**
      * @param string $pronunciation
      *
-     * @return self
+     * @return $this
      */
     public function setPronunciation($pronunciation)
     {
@@ -139,9 +139,9 @@ class Word
     }
 
     /**
-     * @param \DateTime $date
+     * @param \DateTime|null $date
      *
-     * @return self
+     * @return $this
      */
     public function setDate($date)
     {
